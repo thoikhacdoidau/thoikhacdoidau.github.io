@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mật thư thời khắc đối đầu</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#inputQ {
+  width: 100%;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+p{
+	margin-top: 10px;
+	width: 100%;
+	border: 1px solid #5d88cc;
+}
+</style>
+</head>
+<body>
+<input type="text" id="inputQ" onkeyup="qaSearch()" placeholder="Gõ từ bất kỳ trong câu hỏi.." title="trả lời mật thư thời khắc đối đầu">
+<content id="answersZone" title="mật thư thời khắc đối đầu">
+	<h4>Cầu trả lời mật thư thời khắc đối đầu sẽ được hiển thị dưới đây....</h4>
+</content>
+<script>
+	var QAList = {
+	
+
+
+
+
+
+
+	Q: [
+		"Trong số yêu quái dưới đây, ai cầm diều trên tay?",
+		"Bộ 4 món của ngự hồn Thụ Yêu có thể kích hoạt hiệu quả gì?",
+		"Bạn thân của Ibaraki Douji là ai?",
+		"Trong số danh sách thức thần dưới đây, mắt ai nhiều nhất?",
+		"Liên Kết Sinh Mệnh của Shouzu (Sò), mỗi lần sử dụng giúp hồi phục bao nhiêu % máu?",
+		"Trong cốt truyện Âm Dương Sư, là ai giết hại Chim Sẻ – bạn thân của Inugami?",
+		"Trong số thức thần dưới đây, ai từng là một tăng nhân?",
+		"Con vật nào đứng trên khung Ước Nguyện chỗ Lồng Đèn bên trái Vườn?",
+		"Ibaraki Douji mất tay nào?",
+		"Thú cưỡi của Mouba là gì?",
+		"Thú cưỡi của Yamausagi là động vật gì?",
+		"Địa điểm Yao Bikuni và Seimei lần đầu gặp mặt ở đâu?",
+		"Trong các thuật pháp sau, thuật pháp nào có thể/khả năng bảo vệ đồng đội?",
+		"Yêu quái nào chạy trên đường?",
+		"Trong số thức thần dưới đây, ai là người muốn vĩnh viễn sống cùng anh trai của mình?",
+		"Trong số thức thần dưới đây, người thích kể chuyện là ai?",
+		"Đạo cụ dùng để Đột Phá Kết Giới là gì?",
+		"Trong số thức thần dưới đây, ai là người không có cánh?",
+		"Hàng tuần lần đầu chia sẻ Thư Viện hoặc triệu hồi, phần thưởng bạn nhận được là gì?",
+		"Trong các thuật pháp sau, thuật pháp nào có hiệu ứng khống chế?",
+		"Cửa vào Tập Kết Huyễn Cảnh ở đâu?",
+		"Trong số thức thần dưới đây, ai nhiều đuôi nhất?",
+		"Thức Thần của Seimei Hắc Ám là ai?",
+		"Hiệu quả bộ 4 Ngự Hồn nào dưới đây là sát thương phản lại sát thương đã nhận?",
+		"Thuật pháp nào có thể phong ấn hiệu quả Ngự Hồn của thức thần?",
+		"Chị gái của Kamigui là ai?",
+		"Thông qua cách nào dưới đây có thể nhận được Huy Hiệu?",
+		"Seimei Hắc Ám bảo ai ăn thịt người để bảo vệ sắc đẹp?",
+		"Thuật pháp nào dưới đây có thể cung cấp Quỷ Hỏa cho phe mình?",
+		"Nguyên liệu thăng cấp ngự hồn không gồm cái nào dưới đây?",
+		"Dùng đạo cụ nào bên dưới không thể dùng để triệu hồi thức thần SSR?",
+		"Người dùng tính mạng để phong ấn tạm thời Orochi là ai?",
+		"Thức thần thỏa mãn điều kiện nào dưới đây có thể thăng sao?",
+		"Kỹ năng nào không thể giảm sát thương đồng đội phải chịu?",
+		"Trong số các thức thần sau ai đến từ Minh Giới?",
+		"Trong cốt truyện, Yuki Onna và Ootengu theo phe Âm Dương Sư nào?",
+		"Thông qua cách nào dưới đây có thể nhận được Vinh Dự?",
+		"Trong số yêu quái dưới đây, ai được gọi là Thần Gió?",
+		"Trong cốt truyện, Hououka yêu cầu Seimei dẫn ai đi từ rừng Phượng?",
+		"Đạo cụ có thể cung cấp lượng lớn Exp cho thức thần là?",
+		"Huyễn cảnh do Ảo Cảnh Tinh Thần của Susabi kích hoạt có hiệu ứng nào?",
+		"Bạn tốt của Sakura no Sei là ai?",
+		"Trong cốt truyện, mảnh Kiếm Kusanagi giấu ở đâu?",
+		"Trong cốt truyện, Kuro Douji và Shiro Douji là đệ tử của ai?",
+		"Thuật pháp nào dưới đây có thể tăng thanh hành động của phe mình?",
+		"Sau khi thỏa mãn điều kiện gì thì có thể đặt thức thần vào trong Vườn?",
+		"Bộ 2 món của ngự hồn Thế Hồn có thể kích hoạt hiệu quả gì?",
+		"Bộ 4 món của ngự hồn Hỏa Linh có thể kích hoạt hiệu quả gì?",
+		"Yêu quái đợi phu quân về trên Cầu Gãy là ai?",
+		"Trong số thức thần dưới đây, ai sinh sống bên Sông Sanzu?",
+		"Trong số thức thần dưới đây, ai nói tiếng khác với những người khác?",
+		"Trong cốt truyện, Yao Bikuni đợi Seimei bao lâu trong rừng Phượng",
+		"Câu Hồn Đăng của Aoandon, mỗi lần hấp thu bao nhiêu Quỷ Hỏa địch?",
+		"Thức thần hiếm có nào dưới đây không thể thức tỉnh?",
+		"Trong các thuật pháp sau, thuật pháp nào là tấn công quần thể/sát thương quần thể?",
+		"Trong số yêu quái dưới đây, ai có thể ăn ác mộng?",
+		"Trong số các thức thần dưới đây, ai ngồi trên lưng Ếch tinh?",
+		"Trong cốt truyện, Kingyohime muốn trả thù ai?",
+		"Người dạy Momiji ăn thịt người là ai?",
+		"Hiệu quả bộ 4 Ngự Hồn nào dưới đây lần đầu ra trận nhận được Quỷ Hỏa?",
+		"Cái gì thưởng báo danh mỗi ngày không có?",
+		"Trong số thức thần dưới đây, ai không có mặt nạ?",
+		"Thức tỉnh thức thần cần bao nhiêu nguyên liệu?",
+		"Thuộc tính bộ 2 món của Ngự Hồn nào dưới đây không phải Chí mạng?",
+		"Cách nhận được khung Hắc Nguyệt là?",
+		"Hiệu quả Thuật pháp Thông Linh – Tật Phong Thông Linh Tật Phong của Kagura là gì?",
+		"Thông qua Thuật Pháp, không thể làm được gì?",
+		"Trong số thức thần dưới đây, ai ngồi trên lưng Chén tinh Nha Nha?",
+		"Trong cốt truyện, Kairaishi và anh trai của nàng ta ngủ say ở đâu?",
+		"Câu cửa miệng của Tesso là gì?",
+		"Thuật pháp nào dưới đây có thể hồi sinh cho đồng đội?",
+		"Trong cốt truyện, Kurodouji và Shirodouji thành đệ tử của ai?",
+		"Thuật pháp “Tiền Là Chính Nghĩa” tiêu hao mấy điểm Quỷ Hỏa?",
+		"Yêu quái Youko định bắt đi là gì?",
+		"Trong cốt truyện, là ai nói với Seimei mảnh Kiếm Kusanagi ở Minh Giới?",
+		"Sở trường của Hakuro là gì gì?",
+		"Đạo cụ có thể đổi trong Shop Bí Kíp gồm có gì?",
+		"Trong cốt truyện, yêu quái nào dụ dỗ Kagura trong mộng cảnh?",
+		"Nội dung nào dưới đây không thể xem ở Thư Viện?",
+		"Bộ 2 món của ngự hồn Phá Thế có thể kích hoạt hiệu quả gì?",
+		"Khiêu chiến phó bản Thủy Quái, cần tiêu hao bao nhiêu Sushi?",
+		"Đâu là công việc của Kuro Mujou và Shiro Mujou?",
+		"Thuật pháp nào dưới đây là thuật pháp sát thương đơn thể?",
+		"Trong số yêu quái dưới đây, ai cầm Kendama trên tay?",
+		"Trong cốt truyện, yêu quái bắt Kagura tới Núi Hắc Dạ là ai?",
+		"Chó cưng của Kyonshi Imouto tên là gì?",
+		"Trong số thức thần dưới đây, ai không thể nào chữa trị cho đồng đội?",
+		"Thuật pháp nào sau đây là thuật pháp khiêu khích?",
+		"Bộ 4 món của ngự hồn Võng Thiết có thể kích hoạt hiệu quả gì?",
+		"Trong số thức thần dưới đây, ai trên đầu không có sừng?",
+		"Trong số thức thần dưới đây, người giỏi vũ đạo là ai?",
+		"Máu càng thấp, sát thương tấn công thuật pháp càng lớn là của ai?",
+		"Nơi vào xem ngoại truyện là gì?",
+		"Trong các thuật pháp sau, thuật pháp nào có thể câm lặng địch?",
+		"Âm Dương Sư có thể triệu hồi ảnh phân thân trợ chiến khi chiến đấu là ai?",
+		"Trường cảnh nào dưới đây có thể xuất hiện Người Giấy?",
+		"Trong cốt truyện, yêu quái nào yêu thầm Koi?",
+		"Khiêu chiến phó bản Niên Thú, cần tiêu hao bao nhiêu Sushi?",
+		"Bộ 2 món của ngự hồn Tâm Nhãn có thể kích hoạt hiệu quả gì?",
+		"Đạo cụ dùng để thăng cấp Hộp Sushi là gì?",
+		"Mục nào không hỗ trợ tăng thêm trong các mục sau?",
+		"Bộ 4 món của ngự hồn Tuyết Hồn có thể kích hoạt hiệu quả gì?",
+		"Bộ 4 món của ngự hồn Niết Bàn có thể kích hoạt hiệu quả gì?",
+		"Thuộc tính bộ 2 món của Ngự Hồn nào dưới đây không phải kháng hiệu ứng?",
+		"Trong cốt truyện, yêu quái Enma yêu cầu Seimei trấn áp là ai?",
+		"Trong cốt truyện, bạn tốt của Kaguya là ai?",
+		"Trong số thức thần dưới đây, có huynh đệ hoặc tỷ muội nào?",
+		"Ân nhân cứu mạng của Hotarugusa là thức thần nào?",
+		"Cờ Cá Chép của Ebisu tối đa kế thừa bao nhiêu % máu của Ebisu?",
+		"Hội Cầu Nguyện có thể nhận được gì?",
+		"Susabi là sứ giả của thần, ban đầu giáng lâm ở đâu?",
+		"Hakuro vào trạng thái Minh Tưởng sẽ tăng loại thuộc tính nào?",
+		"Mục nào dưới đây không phải nội dung nhiệm vụ hàng ngày?",
+		"Trong cốt truyện, Kingyochi mời ai tham gia Hội Nữ Tử?",
+		"Dưới đây cái nào là thuật pháp của Tesso?",
+		"Thuật pháp nào có thể giải trừ hiệu ứng giảm ích của phe mình?",
+		"Khiêu chiến phó bản Nghiệp Nguyên Hỏa, cần loại đạo cụ nào dưới đây?",
+		"Trong số thức thần dưới đây, người ít nói là ai?",
+		"Muốn xem lại các cốt truyện đã mở khóa, nhấn vào?",
+		"Đạo cụ cần để triệu hồi thức thần mới?",
+		"Huyễn cảnh do Long Thủ Ngọc của Kaguya kích hoạt không có hiệu ứng nào?",
+		"Thuật pháp nào dưới đây là thuật pháp chữa trị?",
+		"Tham gia Bách Quỷ Dạ Hành, nhận được gì?",
+		"Trong số thức thần dưới đây, thức thần không thể bay là ai?",
+		"Cuồng Khiếu của Shuten Douji, mỗi tầng tối đa hồi phục bao nhiêu % máu?",
+		"rong số thức thần dưới đây, ai là cô gái đáng yêu?",
+		"Trong số Thức Thần dưới đây, ai là bé trai đáng yêu?",
+		"Bộ 2 món của Ngự Hồn Mộc Mị có thể kích hoạt hiệu quả gì?",
+		"Bộ 4 món của ngự hồn Mộc Mị có thể kích hoạt hiệu quả gì?",
+		"Trong số yêu quái dưới đây, ai thích gõ trống?",
+		"Trong số thức thần dưới đây, ai không phải yêu quái dưới nước?",
+		"Trong các nhân vật dưới đây, ai không biết thổi sáo?",
+		"Yao Bikuni uy hiếp ai để yêu cầu Seimei giải trừ phong ấn của Orochi?",
+		"Trong số thức thần dưới đây, người sinh ra từ trong tranh là?",
+		"Trong cốt truyện, Seimei tìm thứ gì để đánh bại Orochi?",
+		"Thư Đồng giống Thức Thần nào dưới đây nhất?",
+		"Ai là người đã quấy rối trấn giữ kết giới Bạch Hổ?",
+		"Trong truyền thuyết, bậc thầy đánh cờ Kisei cuối cùng đã thua ai?",
+		"Trong truyền thuyết, ai đã phong ấn Ryoumenbotoke?",
+		"Trong truyền thuyết, Gaki ăn gì mỗi ngày?",
+		"Gero nào giữ thăng bằng cực kém, thường bị rơi xuống xe?",
+		"Tay của Ibaraki Douji bị đao nào chặt đứt?",
+		"Con ếch nào thị lực không tốt?",
+		"Trong truyện kí, chị của Gaki ăn gì mỗi ngày?",
+		"Thức Thần nào từng ra trận chiến đấu cho nước nhà?",
+		"Con ếch nào tay cột bong bóng?",
+		"Thức Thần nào cầm quạt gấp trên tay?",
+		"Gero nào chuyên gây phiền phức cho người khác?",
+		"Thức Thần nào lưu lạc khắp nơi tránh sự truy bắt của loài người?",
+		"Gero nào trước khi đi đâu đều kiểm tra son môi có vẽ đối xứng hay không?",
+		"Kachou Gero vì muốn bắt chước Kachou Fuugetsu nên đã làm ai khó chịu?",
+		"Ai có mình người đuôi rắn?",
+		"Ai là người quấy rối trấn giữ kết giới Thanh Long?",
+		"Đôi mắt của daruma bổng vi như thế nào?",
+		"Thức Thần nào cầm Yêu Đao cực to?",
+		"Ame Onna không giải trừ được hiệu ứng nào dưới đây?",
+		"Kagura là loli hay ngự tỷ?",
+		"Yao Bikuni là loli hay ngự tỷ?",
+		"Người Momiji thích là ai?",
+		"Kachou Fuugetsu sau khi thức tỉnh có bao nhiêu thuộc tính S?",
+		"Thức Thần SSR cần bao nhiêu mảnh để gọi?",
+		"Kỹ năng Trợ Chiến của Ubume có bao nhiêu cấp?",
+		"Cuồng Nhận của Youko phóng ra ít nhất bao nhiêu lưỡi đao?",
+		"Vũ khí của Hiromasa là gì?",
+		"Kỹ năng nào dưới đây có thể gây khiêu khích?",
+		"Kỹ năng nào dưới đây là đòn tấn công đơn thể?",
+		"Cái nào dưới đây không phải là kỹ năng của Tesso?",
+		"Nơi Yao Bikuni và Seimei lần đầu gặp mặt là?",
+		"Yêu quái nào chạy trên đường Heian-Kyoto?",
+		"Nhiệm vụ của Shiro Mujou và Kuro Mujou là gì?",
+		"Cần tiêu tốn nguyên liệu nào để triệu hồi Thức Thần mới?",
+		"Đạo cụ dùng để phá kết giới là?",
+		"Kỹ năng nào dưới đây không thể tăng cấp?",
+		"Sau khi thỏa mãn điều kiện gì thì có thể đặt Thức Thần trong vườn?",
+		"Trong số các Thức Thần dưới đây ai từng là một hòa thượng?",
+		"Ai có diễn viên lồng tiếng khác nhau?",
+		"Động vật nào đứng trên khung ước nguyện chỗ lồng đèn bên trái vườn?",
+		"Bạn của Kaoru là loài chim gì?",
+		"Kyuumei Neko có bao nhiêu đuôi?",
+		"Cái nào dưới đây không phải là hiệu quả kỹ năng của Shouzu?",
+		"Dòng chữ viết trên tấm bảng trước ngực Tesso có nghĩa là?",
+		"Hitotsume Kozou vác hòn đá khắc hình ai trên lưng?",
+		"Trong cốt truyện, Kosode no Te chờ đợi ai trở về?",
+		"Kaguya cưỡi trên cái gì?",
+		"Trong cốt truyện, ai đã đánh thức Youtouchi?",
+		"Hai mặt của Ryoumenbotoke là gì?",
+		"Em gái của Ibaraki Gero là ai?",
+		"Bạn thân của Shuten Gero là ai?",
+		"Đối tượng mà Kachou Gero luôn muốn hướng đến là?",
+		"Trong số những nhân vật dưới đây, ai là bạn thân của Tamamo no Mae?",
+		"Tên thanh kiếm của Yuki Douji là gì?",
+		"Tên chú thỏ tuyết của Yuki Douji là gì?",
+		"Ai là chủ nhân của Hoang Cốt Lâu?",
+		"Lung Xa là thuộc hạ của ai?",
+		"Ai là chủ nhân của Jishin Namazu?",
+		"Jishin Namazu đã đề cập đến ai?",
+		"Aoandon gặp Hououka lần đầu ở đâu?",
+		"Trong cốt truyện, ai đã cứu Aoandon?",
+		"Kachou Fuugetsu là yêu quái hóa thân từ đâu?",
+		"Kỹ năng của Shishio có hiệu quả nào dưới đây?",
+		"Truyện kí Thức Thần nào có thể mang đến tài lộc cho mọi người?",
+		"Thức Thần nào bị gọi là quỷ hay khóc?",
+		"Thuật pháp Luật Của Xu tiêu hao mấy điểm Quỷ Hỏa?",
+		"Thức Thần nào cầm bút lông khổng lồ trên tay? ",
+		"Thức Thần nào mang đôi cánh dơi sau lưng?",
+		"Thức Thần nào trên đầu có cắm một mũi tên? ",
+		"Trong Heian Ngoại Truyện-Tesso Dật Văn, Tesso đã lừa tiền của ai? ",
+		"Thức Thần nào ngồi trên cái chén? ",
+		"Phu quân của Sakura no sei?",
+		"Trọng trận cờ cuối cùng Kisei đã đánh cờ cùng lúc với bao nhiêu người?",
+		"Thức Thần nào có thể nhìn thấu tâm người, đọc ký ức người khác? ",
+		"Trong truyền thuyết, 7 cái mặt nạ của Menreiki đại diện cho cái gì? ",
+		"Con ếch nào muốn thu hút sự chú ý nên hay tạo dáng kỳ lạ? ",
+		"Thức Thần R có thể triệu hồi bằng bao nhiêu mảnh trương ứng?",
+		"Thức Thần nào không có đuôi? ",
+		"Thức Thần nào kết thúc câu nói bằng chữ meo? ",
+		"Thức Thần nào giỏi nữ công gia chánh?",
+		"Thức Thần nào được gọi là Chủ nhân của Bách Vật Ngữ?",
+		"Gero nào cầm hạc giấy trên tay?",
+		"Trong truyền thuyết, tỷ tỷ của yamawaro bị yêu quái nào bắt đi?",
+		"Thuật pháp nào không phải của Kamaitachi?",
+		"Thức Thần nào cầm chùy đá trên tay?",
+		"Thức Thần nào tự xưng là Thư Sinh?",
+		"Mắt của Daruma may mắn như thế nào?",
+		"Kodokushi có ý niệm đặc biệt với Thức Thần nào?",
+		"Momiji chung tình với ai?",
+		"Bạn tốt của Shiro Douji là ai?",
+		"Thức Thần nào do cây Trúc biến thành?",
+		"Trước khi mất trí nhớ, Seimei đã gọi thức thần nào để ứng phó? ",
+		"Mắt của Daruma Ngự Hành như thế nào?",
+		"Thức Thần nào có thể mang may mắn tài lộc đến? ",
+		"Ai là người quấy rối trấn giữ kết giới Huyền Vũ?",
+		"Trong truyền thuyết, Ichimoku Ren đã mất gì khi chống lụt?",
+		"Tên chú thỏ tuyết của Yuki Douji là gì?",
+		"Hitotsume Kozou vác hòn đá khắc hình ai trên lưng?",
+		"Ai là chủ nhân của Jishin Namazu?",
+		"Thức Thần nào từng làm liên lụy đến bạn và luôn tự trách mình?",
+		"Thức Thần nào thích cầm trống tay nhảy múa?",
+		"Trong cốt truyện, ân nhân cứu mạng của Hakuro là ai?",
+		"Trong truyện, Hakaarashi no Rei hứng thú với món gì trong huyệt mộ? ",
+		"Thức thần nào đeo mặt nạ, tay cầm trường đao?",
+		"Ai là người quấy rối trấn giữ kết giới Bạch Hổ?",
+		"Thức Thần nào thường cảnh báo người khác đừng lại gần khu rừng?",
+		"Đặt Thẻ Kết Giới có thể nhận Sushi là?",
+		"Thức thần nào sống ở trong núi sâu?",
+		"Thuật pháp nào không phải của Ushi no Kokumairi?",
+		"Thức Thần nào tấn công mục tiêu đang ngủ say không làm họ tỉnh dậy?",
+		"Trong cốt truyện, người đến thăm Seimei là ai trong anh em Kyonshi? ",
+		"Thức Thần nào không có tay?",
+		"Hiromasa và Seimei gặp nhau lần đầu ở đâu?",
+		"Yamawaro thích ăn nhất là gì?",
+		"Hitotsume Kozou là yêu quái gì hóa thành?",
+		"Cái nào không làm được bằng Thức Thần Lục?",
+		"Thức Thần nào bị gọi là ma rượu?",
+		"Thức Thần nào không bị người yêu phản bội?",
+		"Trong cốt truyện, Zashiki Warashi đi bắt yêu quái vì ai?",
+		"Thức Thần nào bị gọi là kẻ hay nhìn trộm?",
+		"Thức Thần nào có thân người đuôi rắn?",
+		"Thẻ gỗ trước ngực Tesso viết chữ gì?",
+		"Cần bao nhiêu vé skin để mua được skin U Điệp Hoa Vũ?",
+		"Trong cốt truyện, con Yumekui ban đầu đã nuốt mất ác mộng của ai?",
+		"Ai là người quấy rối trấn giữ kết giới Chu Tước?",
+		"Trong truyền thuyết, Kyonshii Imouto gọi Youko là gì?",
+		"Mouba vì ai mà chế tạo ra canh làm người khác quên hết mọi thứ?",
+		"Kết Giới nào có thể nhận được xu?",
+		"Ichimoko Gero xem ai như là em gái?",
+		"Truyền thuyết Thức Thần nào có thể mang đến tài lộc cho mọi người? ",
+		"Bạn duy nhất của Kuro Douji là?",
+		"Thẻ Kết Giới nào có thể nhận được Khuyết Ngọc?",
+		"Thức Thần nào có ít mắt nhất?",
+		"Thuật pháp Bạo Phong Tuyết của Yuki Onna gây ra hiệu ứng gì?",
+		"Thức Thần nào từng rất thích ăn Tía Tô?",
+		"Đủ điều kiện gì mới được đổi Skin Thức Thần?",
+		"Tại Minh Giới, ai có Đôi Mắt đặc biệt, có thể nhìn rõ thiện ác?",
+		"Thức Thần nào cầm đàn trên tay?",
+		"Thức Thần nào sống trong rừng sâu?",
+		"Đánh Chân Thân Bát Xà, cần bao nhiêu Sushi?",
+		"Trong truyền thuyết ai là người dụ Ootengu Gero trét bùn lên má?",
+		"Cổng vào Bách Quỷ Dịch ở đâu?",
+		"Tại Minh Giới, ai là người cầm Bút Sinh Tử?",
+		"Gaki trước khi thành yêu quái, sống cùng với ai?",
+		"Thức Thần nào tay cầm hoa Bồ Công Anh khổng lồ?",
+		"Kiyohime bị ai phản bội mà thành yêu quái?",
+		"Shuten Douji chung tình với ai?",
+		"Tăng cấp bình Exp cần tiêu hao gì?",
+		"Dưới đây cái nào là thuật pháp không phải của Tesso?",
+		"Trong truyện kí, ai đã phong ấn Ryoumenbotoke hơn trăm năm?",
+		"Kagura và Semei gặp nhau lần đầu tại đâu?",
+		"Ngự Linh của Seimei là gì?",
+		"Kairaishi gọi con bù nhìn sau lưng là gì?",
+		"Người dẫn đường minh giới là nguời nào?",
+		"Thức thần nào luôn mang mặt nạ trên nguời?",
+		"Thức thần nào tay cầm lồng đèn?",
+		"Cô gái mang theo bù nhìn to là chỉ ai?",
+		"Bạn thân của Mouba là ai?",
+		"Thức thàn nào cầm dù giấy trên tay?",
+		"Trong cốt truyện anh em kyonshi ai đã vào nhầm Minh Giới?",
+		"Trong truyền thuyết, Ichimoku Ren bị mất con mắt nào?",
+		"Trên quạt của Ootengu Gero có chữ gì?",
+		"Hako no Shoujo cầm vật gì trên tay?",
+		"Thức thần nào sau đây có độ hiếm cao nhất?",
+		"Thức thần nào đứng dưới mặt đất?",
+		"Trong truyền thuyết, Jorougumo bị cái gì nuốt mất cơ thể?",
+		"Thức thần nào tay cầm búa gỗ và nguời rơm/ Thức thần nào cầm búa gỗ và người rơm?",
+		"Nguyên liệu thăng cấp thức thần không gồm cái nào dưới đây?",
+		"Trong truyện kí, trận cờ cuối cùng Kisei đã thua ai?"
+	],
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	A: [
+		"Amanojaku Ao",
+		"Tăng trị liệu",
+		"Shuten Douji",
+		"Akajita",
+		"5%",
+		"Kyuuinochi Neko",
+		"Aobozu",
+		"Quạ",
+		"Tay phải",
+		"Chén tinh Nha Nha",
+		"Ếch",
+		"Rừng Phượng / Phượng Hoàng Lâm",
+		"Phong Thuẫn/Ngôn linh: Thủ/Triệu hồi: Yêu Tản/ Ấn Chiêm Tinh",
+		"Yamausagi và Mouba",
+		"Kairaishi",
+		"Aoandon",
+		"Thẻ Đột phá",
+		"Yamawaro",
+		"Bùa thần bí",
+		"Bạo Phong Tuyết",
+		"Phố",
+		"Sanbi no Kitsune",
+		"Ootengu và Yuki Onna",
+		"Kính Cơ",
+		"Tâm Đố Kỵ",
+		"Enenra",
+		"Hội chiến săn bắt/Phá Kết Giới",
+		"Momiji",
+		"Hoạ Phúc Tương Sinh",
+		"Ngự hồn",
+		"Bùa xám",
+		"Âm Dương Sư Kyoto",
+		"Đạt tới cấp cao nhất hiện tại",
+		"Thông Linh: Minh Điệp",
+		"Enma",
+		"Seimei Hắc Ám",
+		"PvP",
+		"Ichimoku Ren",
+		"Yao Bikuni",
+		"Daruma",
+		"Susabi trợ chiến",
+		"Momo no Sei",
+		"Minh Phủ",
+		"Kuro Mujou và Shiro Mujou",
+		"Hola Hola, Dư Âm",
+		"Hoàn thành truyền thuyết",
+		"Tăng Thể lực 15%",
+		"Nhận 3 Quỷ hoả",
+		"Ame Onna",
+		"Higanbana",
+		"Momo / Oguna",
+		"30 năm",
+		"1",
+		"Thức thần cấp N",
+		"Thiên Vũ Giáng / Câu Hồn Đăng",
+		"Yumeikui",
+		"Mouba",
+		"Lãnh Chúa Arakawa",
+		"Seimei Hắc Ám",
+		"Hỏa Linh",
+		"Thức thần",
+		"Bakedanuki",
+		"4",
+		"Âm Ma",
+		"Hoàn thành thành tựu Vận Rủi",
+		"Giúp đồng đội nhận hành động",
+		"Thăng cấp Thức Thần",
+		"Mouba",
+		"Trong sông Sanzu",
+		"Xem tiền… / “Nhà có một con chuột, giống như có một báu vật”",
+		"Đào Khai Hoa",
+		"Kuro Mujou và Shiro Mujou",
+		"2",
+		"Koi",
+		"Seimei Hắc Ám",
+		"Cung tên",
+		"Ảnh emo động / Tất cả đều đúng",
+		"Kodokushi",
+		"Cấp Thức thần",
+		"Tỷ lệ chí mạng",
+		"30",
+		"Dẫn độ linh hồn",
+		"Vô Ngã",
+		"Amanojaku Aka",
+		"Kamigui",
+		"Cà Chua",
+		"Hououka",
+		"Bất khuất/Chọc tức",
+		"Bỏ qua Phòng ngự",
+		"Shuten Douji",
+		"Sakura no Sei",
+		"Kyuuketsuhime",
+		"Ngoại Truyện",
+		"Oán Hồn Trọng Áp / Vật Trời Giáng",
+		"Hiromasa",
+		"Tất cả đáp án",
+		"Kappa",
+		"12",
+		"Công kích tăng 15%",
+		"Huy hiệu",
+		"Kho báu người giấy",
+		"Đóng băng mục tiêu",
+		"Hồi phục Thể lực (Máu",
+		"Bộ 2 ngự hồn kháng: Ma Hạp, Quỷ Hồn, Quỷ Cốc, Xí Ngầu",
+		"Kairaishi",
+		"Kingyochi",
+		"Kuro Mujou/Oguna/Kyonshii Imouto/Kyonshii/Doujo",
+		"Hakuro",
+		"60%",
+		"Mảnh Khế Ước (Mảnh Thức Thần)",
+		"Làng bên bờ biển",
+		"Sát thương chí mạng / Hiệu quả bạo kích",
+		"PvP",
+		"Susabi",
+		"Hoành Tài Hộ Thân",
+		"Thiên Giáng Lệ Kích/Thiên Giáng Lệ Vũ",
+		"Vé Tham – Sân – Si",
+		"Kuro Mujou",
+		"Nhấn vào Cây-Hồi Ức",
+		"Bùa",
+		"Tăng Thể lực",
+		"Trị Dũ Quang/Hoa Điểu Tương Vấn",
+		"Mảnh khế ước",
+		"Hotarugusa",
+		"20%",
+		"Zashiki Warashi",
+		"Hanya",
+		"Thủ",
+		"Cướp quỷ hoả",
+		"Amanojaku Ki",
+		"Kyuuinochi Neko",
+		"Shuten Douji",
+		"Kagura",
+		"Kachou Fuugetsu",
+		"Kiếm Kusanagi",
+		"Akajita",
+		"Ryoumenbotoke",
+		"Người yêu",
+		"Seimei",
+		"Khoai lang",
+		"Enma Gero",
+		"Onikiri",
+		"Ryoumen Gero",
+		"Rễ cây",
+		"Kubinashi",
+		"Ibaraki Gero",
+		"Lãnh Chúa Arakawa/Youko/Oitsukigami/Kingyochi/Shouzu",
+		"Ibaraki Gero",
+		"Itsumade",
+		"Higanbana Gero",
+		"Youtouchi Gero",
+		"Kiyohime",
+		"Lãnh chúa Arakawa",
+		"Màu đen hết",
+		"Youtouchi",
+		"Choáng",
+		"Loli",
+		"Ngự tỷ",
+		"Seimei",
+		"2",
+		"50",
+		"1",
+		"2",
+		"Cung tiễn",
+		"Bất Khuất",
+		"Vô Ngã",
+		"Gia Tài Vạn Quán",
+		"Rừng Phượng Hoàng",
+		"Yamausagi và Mouba",
+		"Dẫn hồn",
+		"Bùa Thần Bí",
+		"Vé đột phá/ Vé phá kết giới",
+		"Kỹ năng bị động",
+		"Mở khóa tất cả Tiểu sử",
+		"Aobouzu",
+		"Momo no Sei/Oguna",
+		"Qụa",
+		"Cú",
+		"2",
+		"Đóng băng mục tiêu",
+		"Cống nạp",
+		"Sư phụ",
+		"Em trai",
+		"Ống tre",
+		"Susabi",
+		"Phong Thần Lôi Thần",
+		"Kaguya Gero",
+		"Ibaraki Gero",
+		"Kachou Fuugetsu",
+		"Kuzunoha",
+		"Yukihashi",
+		"Yukimaru",
+		"Higanbana",
+		"Tamamo no Mae",
+		"Miketsu",
+		"Oitsukigami",
+		"Rừng Phượng Hoàng",
+		"Hououka",
+		"Họa quyển",
+		"Tất cả đều đúng",
+		"Ebisu",
+		"Doujo",
+		"2",
+		"Hangan",
+		"Kyuuketsuhime",
+		"Kyonshi Ani",
+		"Kamaitachi",
+		"Mouba",
+		"Tadayoshi",
+		"10 người",
+		"Doumeki",
+		"7 lọai cảm xúc",
+		"Susabi Gero",
+		"30",
+		"Yuki Onna",
+		"Kyuinochi Neko",
+		"Kosode no Te",
+		"Aoandon",
+		"Kachou Gero",
+		"Kappa",
+		"Quỷ Tập",
+		"Yamawaro",
+		"Youko",
+		"Đều là màu trắng",
+		"Kochosei",
+		"Seimei",
+		"Kuro Douji",
+		"Mannendake",
+		"Kohaku",
+		"Trái đen Phải trắng",
+		"Zashiki Warashi",
+		"Ootengu",
+		"Mắt",
+		"Yukimaru",
+		"Sư phụ",
+		"Miketsu",
+		"Bakedanuki",
+		"Kochosei",
+		"Hiromasa",
+		"Chuyện",
+		"Karasu Tengu",
+		"Ryoumenbotoke",
+		"Komatsumaru",
+		"Đấu Ngư",
+		"Itsumade",
+		"Xuyên Châm Dẫn Tuyến",
+		"Yumekui",
+		"Kyonshii Imouto",
+		"Chouchin Obake",
+		"Hắc Dạ Sơn",
+		"Cơm nắm",
+		"Cá gõ (cái mõ)",
+		"Tăng cấp Ngự Linh",
+		"Bakedanuki",
+		"Sakura no Sei",
+		"Mẫu thân",
+		"Kappa",
+		"Kiyohime",
+		"Cống Mèo",
+		"150",
+		"Seimei Hắc Ám",
+		"Yuki Onna",
+		"Thúc Thúc",
+		"Mẫu thân",
+		"Tản Phòng",
+		"Youtouchi Gero",
+		"Ebisu",
+		"Shiro Douji",
+		"Thái Cổ",
+		"Yamawaro/Hitotsume Kozou",
+		"Đóng băng",
+		"Kyuuketsuhime",
+		"Thức Tỉnh",
+		"Enma",
+		"Mouba/Youkinshi",
+		"Mushishi/Komatsumaru",
+		"60",
+		"Kaguya Gero",
+		"Phố",
+		"Hangan",
+		"Tỷ tỷ",
+		"Hotarugusa",
+		"Người yêu",
+		"Momiji",
+		"Huy Hiệu",
+		"Gia Tài Vạn Quán",
+		"Seimei",
+		"Hắc Dạ Sơn",
+		"Thần Long",
+		"Anh trai/Ca ca",
+		"Kuro Mujou và Shiro Mujou",
+		"Hannya/Karasu Tengu",
+		"Chouchin Kozou/ Usagimaru",
+		"Kairaishi",
+		"Yamausagi",
+		"Ame Onna/Ubume",
+		"Kyonshi Ani",
+		"Phải",
+		"Ếch",
+		"Tượng Người",
+		"Yuki Onna",
+		"Youtouchi",
+		"Nhện độc",
+		"Ushi no Kokumairi",
+		"Bùa Thần Bí",
+		"Người yêu"
+	]
+}
+
+	function qaSearch(){
+		filter = document.getElementById("inputQ").value.toLowerCase();
+		content = document.getElementById("answersZone");
+		while(content.hasChildNodes()){
+			content.removeChild(content.childNodes[0]);
+		}
+		for (var i = QAList.Q.length - 1; i >= 0; i--) {
+			if (QAList.Q[i].toLowerCase().indexOf(filter) > -1) {
+				var node = document.createElement("p");
+				var br = document.createElement("br");
+				var qNode = document.createTextNode(QAList.Q[i]);
+				var aNode = document.createTextNode(QAList.A[i]);
+				node.appendChild(qNode);
+				node.appendChild(br);
+				node.appendChild(aNode);
+				document.getElementById("answersZone").appendChild(node);
+			}
+		}
+	}
+
+	// for(var i = 0; i < QAList.Q.length; i++){
+	// 	var node = document.createElement("p");
+	// 	var br = document.createElement("br");
+	// 	var qNode = document.createTextNode(QAList.Q[i]);
+	// 	var aNode = document.createTextNode(QAList.A[i]);
+	// 	node.appendChild(qNode);
+	// 	node.appendChild(br);
+	// 	node.appendChild(aNode);
+	// 	document.getElementById("answersZone").appendChild(node);
+	// }
+	// function qaSearch(){
+	// 	var input, filter, table, p, td, i, txtValue;
+	// 	input = document.getElementById("inputQ");
+	// 	filter = input.value.toLowerCase();
+	// 	table = document.getElementById("answersZone");
+	// 	p = table.getElementsByTagName("p");
+	// 	for(i = 0; i < p.length; i++){
+	// 		pp = p[i];
+	// 		if(pp){
+	// 			txtValue = pp.textContent || pp.innerText;
+	// 			if(txtValue.toLowerCase().indexOf(filter) > -1){
+	// 				p[i].style.display = "";
+	// 			}else{
+	// 				p[i].style.display = "none";
+	// 			}
+	// 		}
+	// 	}
+	// }
+	
+</script>
+
+</body>
+</html>
