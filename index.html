@@ -20,13 +20,34 @@ p{
 	width: 100%;
 	border: 1px solid #5d88cc;
 }
+#messenger{
+	width: 150px;
+	text-align: center;
+	background: #0084ff;
+    padding: 10px;
+    border-radius: 50px;
+    margin: 5px;
+}
+#messenger a{
+	padding: 10px 30px;
+	color: #fff;
+	text-decoration: none;
+}
 </style>
 </head>
 <body>
+<header>
+<label><strong>Page FB tự động trả lời truy nã yêu quái.</strong></label>
+<div id="messenger">
+	<a href="https://m.me/nguoigiayads">
+	Messenger</a>
+</div>
+</header>
 <input type="text" id="inputQ" onkeyup="qaSearch()" placeholder="Gõ từ bất kỳ trong câu hỏi.." title="trả lời mật thư thời khắc đối đầu">
 <content id="answersZone" title="mật thư thời khắc đối đầu">
 	<h4>Cầu trả lời mật thư thời khắc đối đầu sẽ được hiển thị dưới đây....</h4>
 </content>
+<footer></footer>
 <script>
 	var QAList = {
 	
